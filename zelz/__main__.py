@@ -31,7 +31,7 @@ if gvarstatus("ALIVE_NAME") is None:
 try:
     LOGS.info("⌭ بـدء تنزيـل ماتركـس ⌭")
     zedub.loop.run_until_complete(setup_bot())
-    LOGS.info("✓ تـم تنزيـل زدثــون .. بـنجـاح ✓")
+    LOGS.info("✓ تـم تنزيـل ماتركـس .. بـنجـاح ✓")
 except Exception as e:
     LOGS.error(f"{str(e)}")
     sys.exit()
