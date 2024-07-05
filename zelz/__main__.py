@@ -1,19 +1,26 @@
-import contextlib
-import sys, asyncio
-import zelz
-from zelz import BOTLOG_CHATID, HEROKU_APP, PM_LOGGER_GROUP_ID
-from telethon import functions
+import sys
+
+from zelz import BOTLOG_CHATID, PM_LOGGER_GROUP_ID
+
 from .Config import Config
 from .core.logger import logging
 from .core.session import zedub
-from .utils import mybot, saves, autoname
-from .utils import add_bot_to_logger_group, load_plugins, setup_bot, startupmessage, verifyLoggerGroup
-from .sql_helper.globals import addgvar, delgvar, gvarstatus
+from .sql_helper.globals import gvarstatus
+from .utils import (
+    add_bot_to_logger_group,
+    autoname,
+    load_plugins,
+    mybot,
+    saves,
+    setup_bot,
+    startupmessage,
+    verifyLoggerGroup,
+)
 
 LOGS = logging.getLogger("BiLaL")
 cmdhr = Config.COMMAND_HAND_LER
 
-if gvarstatus("ALIVE_NAME") is None: 
+if gvarstatus("ALIVE_NAME") is None:  
     try:
         LOGS.info("⌭ بـدء إضافة الاسـم التلقـائـي ⌭")
         zedub.loop.run_until_complete(autoname())
@@ -24,14 +31,17 @@ if gvarstatus("ALIVE_NAME") is None:
 try:
     LOGS.info("⌭ بـدء تنزيـل ماتركـس ⌭")
     zedub.loop.run_until_complete(setup_bot())
-    LOGS.info("✓ تـم تنزيـل ماتركـس .. بـنجـاح ✓")
+    LOGS.info("✓ تـم تنزيـل زدثــون .. بـنجـاح ✓")
 except Exception as e:
     LOGS.error(f"{str(e)}")
     sys.exit()
 
+
 class ZTCheck:
     def __init__(self):
         self.sucess = True
+
+
 ZTcheck = ZTCheck()
 
 try:
@@ -53,7 +63,9 @@ async def startup_process():
     await verifyLoggerGroup()
     await load_plugins("plugins")
     await load_plugins("assistant")
-    LOGS.info(f"⌔ تـم تنصيـب ماتركـس . . بنجـاح ✓ \n⌔ لـ إظهـار الاوامـر ارسـل (.الاوامر)")
+    LOGS.info(
+        f"⌔ تـم تنصيـب ماتركـس . . بنجـاح ✓ \n⌔ لـ إظهـار الاوامـر ارسـل (.الاوامر)"
+    )
     await verifyLoggerGroup()
     await add_bot_to_logger_group(BOTLOG_CHATID)
     if PM_LOGGER_GROUP_ID != -100:
@@ -66,10 +78,14 @@ async def startup_process():
 zedub.loop.run_until_complete(startup_process())
 
 if len(sys.argv) not in (1, 3, 4):
-    with contextlib.suppress(ConnectionError):
-        zedub.disconnect()
+    zedub.disconnect()
 elif not ZTcheck.sucess:
-    with contextlib.suppress(ConnectionError):
+    try:
         zedub.run_until_disconnected()
+    except ConnectionError:
+        pass
 else:
-    zedub.run_until_disconnected()
+    try:
+        zedub.run_until_disconnected()
+    except ConnectionError:
+        pass
