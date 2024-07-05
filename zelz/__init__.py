@@ -14,18 +14,18 @@ from .sql_helper.globals import addgvar, delgvar, gvarstatus
 
 __version__ = "3.3.3"
 __license__ = "حقـوق سـورس ماتركـس"
-__author__ = "ماتركـس <https://T.me/veevvw>"
+__author__ = "ماتركـس <https://T.me/VEEVVW>"
 __copyright__ = "Matrix Source (C) 2020 - 2024  " + __author__
 
 zedub.version = __version__
-LOGS = logging.getLogger("ماتركس")
+LOGS = logging.getLogger("ماتركـس")
 bot = zedub
 
 StartTime = time.time()
 zedversion = "3.3.3"
 
 if Config.UPSTREAM_REPO == "zel":
-    UPSTREAM_REPO_URL = "https://github.com/E9N99/KOYEB"
+    UPSTREAM_REPO_URL = "https://github.com/E9N99/MTM"
 else:
     UPSTREAM_REPO_URL = Config.UPSTREAM_REPO
 
